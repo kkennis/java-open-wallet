@@ -29,13 +29,14 @@ public class Wallet {
     public void exportToFile(String filePath) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         final StringBuilder walletData = new StringBuilder("-----WALLET DATA-----");
-        fileWriter.append("\n\tlabel='").append(label).append('\'');
-        fileWriter.append("\n\tpub='").append(this.keychain.pub).append('\'');
-        fileWriter.append("\n\tprv='").append(this.keychain.prv).append('\'');
-        fileWriter.append("\n\tnetwork='").append(network).append('\'');
+        walletData.append("\nlabel='").append(label).append('\'');
+        walletData.append("\npub='").append(this.keychain.pub).append('\'');
+        walletData.append("\nprv='").append(this.keychain.prv).append('\'');
+        walletData.append("\nnetwork='").append(network).append('\'');
+        walletData.append("\n-----END-----");
 
         fileWriter.write(walletData.toString());
-
+        fileWriter.close();
     }
 
     @Override
