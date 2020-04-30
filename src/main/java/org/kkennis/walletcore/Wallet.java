@@ -1,5 +1,6 @@
-package org.kkennis;
+package org.kkennis.walletcore;
 
+import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.wallet.UnreadableWalletException;
@@ -8,8 +9,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -95,6 +96,17 @@ public class Wallet {
                 .collect(Collectors.toList());
 
         return this.keychain.singleSigDerivationKeychain.getKeyByPath(fullPath, true);
+    }
+
+    public String keyToAddress(DeterministicKey key) {
+        byte[] addressBytes = key.getPubKeyHash();
+        LegacyAddress address = LegacyAddress.fromPubKeyHash(this.keychain.networkParams, addressBytes);
+        return address.toString();
+    }
+
+    public String deriveAddress(String path) throws PathFormatException {
+       DeterministicKey key = this.deriveKey(path);
+       return keyToAddress(key);
     }
 
     public void exportToFile(String filePath) throws IOException {

@@ -1,10 +1,6 @@
-package org.kkennis;
+package org.kkennis.walletcore;
 
 import org.bitcoinj.crypto.DeterministicKey;
-import org.kkennis.Wallet;
-
-import java.io.IOException;
-import java.nio.file.Path;
 
 public class Main {
 
@@ -52,13 +48,17 @@ public class Main {
         System.out.println("Root Key:");
         System.out.println(rootKey);
 
-        DeterministicKey key1 = importedWallet.deriveKey("0/0/1/100");
+        DeterministicKey key1 = importedWallet.deriveKey("0/0/1/5");
         System.out.println("Key 1:");
         System.out.println(key1);
+        System.out.println("Address 1:");
+        System.out.println(importedWallet.keyToAddress(key1));
 
-        DeterministicKey key2 = importedWallet.deriveKey("0/0/1/100'");
+        DeterministicKey key2 = importedWallet.deriveKey("0/0/1/5'");
         System.out.println("Key 2:");
         System.out.println(key2);
+        System.out.println("Address 2:");
+        System.out.println(importedWallet.keyToAddress(key2));
 
         System.out.println("Key 3:");
         try {

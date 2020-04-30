@@ -1,4 +1,4 @@
-package org.kkennis;
+package org.kkennis.walletcore;
 
 public class PathFormatException extends NumberFormatException {
     public PathFormatException() {
